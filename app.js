@@ -1,3 +1,4 @@
+
 const express = require('express')
 const path = require('path')
 const dotenv = require('dotenv')
@@ -52,7 +53,7 @@ app.use(
 app.use(mongoSanitize())
 
 // Set security headers
-app.use(helmet())
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // Prevent XSS attacks
 app.use(xss())
@@ -94,11 +95,12 @@ app.use(versionOne('search'), searchRoutes)
 
 app.use(errorHandler)
 
+
 const PORT = process.env.PORT
 
 const server = app.listen(PORT, () => {
 	console.log(
-		`We are live on ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+		`We are live on ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold
 	)
 })
 
